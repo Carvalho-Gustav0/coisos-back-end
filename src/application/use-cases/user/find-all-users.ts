@@ -4,18 +4,16 @@ import { Injectable } from "@nestjs/common";
 import { UserNotFound } from "../errors/users-not-found";
 
 @Injectable()
-export class GetUser {
+export class FindAllUsers {
     constructor(private userRepository: UserRepository) { }
 
-    async execute(request: string): Promise<User | null> {
-        const user_id = request
+    async execute(): Promise<User[] | []> {
+        const users = await this.userRepository.getUsers()
 
-        const user = await this.userRepository.findById(user_id)
-
-        if (!user) {
+        if (!users) {
             throw new UserNotFound()
         }
 
-        return user
+        return users
     }
 }

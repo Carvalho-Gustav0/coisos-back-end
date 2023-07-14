@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common";
 import { CoisosController } from "./controllers/user.controller";
 import { DatabaseModule } from "../database/database.module";
-import { RegisterUser } from "@application/use-cases/user/register-user";
-import { GetUser } from "@application/use-cases/user/get-user";
-import { GetAllUsers } from "@application/use-cases/user/get-users";
+import { RegisterUser } from "@application/use-cases/user/login/register-user";
+import { FindUser } from "@application/use-cases/user/find-user";
+import { FindAllUsers } from "@application/use-cases/user/find-all-users";
 
 @Module({
     imports: [DatabaseModule],
     controllers: [CoisosController],
-    providers: [RegisterUser, GetUser, GetAllUsers]
+    providers: [RegisterUser, FindUser, FindAllUsers]
 })
 
 export class HttpModule { }

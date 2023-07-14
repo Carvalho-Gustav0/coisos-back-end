@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 
 export interface UserProps {
     id_user: string;
+    user_token?: string;
     name: string;
     cpf: string;
     email: string,
@@ -27,6 +28,14 @@ export class User {
 
     public get name(): string {
         return this.props.name
+    }
+
+    public set user_token(user_token: string) {
+        this.props.user_token = user_token;
+    }
+
+    public get user_token(): string {
+        return this.props.user_token
     }
 
     public set cpf(cpf: string) {

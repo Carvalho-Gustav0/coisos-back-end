@@ -6,16 +6,17 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlserver"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id_user  String @id
-  name     String
-  cpf      String
-  email    String
-  password String
+  id_user    String @id
+  user_token String
+  name       String
+  cpf        String
+  email      String
+  password   String
 
   @@index([id_user])
 }
