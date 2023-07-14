@@ -1,5 +1,4 @@
 import { User } from "@application/entities/user/user";
-import { LoginUserRequest } from "@application/use-cases/user/login/login-user";
 import { User as RawUser } from "@prisma/client";
 
 export class PrismaUserMapper {
@@ -11,14 +10,6 @@ export class PrismaUserMapper {
             cpf: user.cpf,
             email: user.email,
             password: user.password,
-        }
-    }
-
-    static toLoginPrisma(loginRequest: LoginUserRequest) {
-        return {
-            user_token: loginRequest.user_token,
-            email: loginRequest.email,
-            password: loginRequest.password
         }
     }
 
