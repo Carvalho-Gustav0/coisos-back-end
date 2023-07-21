@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 
 export interface UserProps {
     id_user: string;
-    user_token?: string;
+    user_token: string;
     name: string;
     cpf: string;
     email: string,

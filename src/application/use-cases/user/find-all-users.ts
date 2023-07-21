@@ -1,7 +1,7 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
 import { Injectable } from "@nestjs/common";
-import { UserNotFound } from "../errors/users-not-found";
+import { UserNotFound } from "../errors/user-not-found";
 
 @Injectable()
 export class FindAllUsers {

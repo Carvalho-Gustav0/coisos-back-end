@@ -1,37 +1,46 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
-import { Injectable } from "@nestjs/common";
-
+import { UserAlreadyCreated } from "@application/use-cases/errors/user-already-created";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 
 interface RegisterUserRequest {
     id_user: string;
+    user_token: string;
     name: string;
     cpf: string;
     email: string;
     password: string;
 }
 
-interface RegisterUserResponse {
-    user: User
-}
 
 @Injectable()
 export class RegisterUser {
     constructor(private userRepository: UserRepository) { }
 
-    async execute(request: RegisterUserRequest): Promise<RegisterUserResponse> {
-        const { id_user, name, cpf, email, password } = request
+    async execute(request: RegisterUserRequest): Promise<User> {
+        const { id_user, user_token, name, cpf, email, password } = request
 
-        const user = new User({
-            id_user,
-            name,
-            cpf,
-            email,
-            password
-        })
+        const already_user_created = await this.userRepository.findUser({ cpf, email });
 
-        await this.userRepository.create(user);
+        if (already_user_created) {
+            throw new UserAlreadyCreated()
+        }
 
-        return { user }
+        try {
+            const user = new User({
+                id_user,
+                user_token,
+                name,
+                cpf,
+                email,
+                password
+            })
+
+            await this.userRepository.create(user);
+
+            return user
+        } catch (e) {
+            throw new InternalServerErrorException('Error creating user.');
+        }
     }
 }

@@ -1,8 +1,11 @@
-import { IsNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, Length, isNotEmpty } from 'class-validator';
 
 export class CreateUserBody {
   @IsNotEmpty()
   id_user: string;
+
+  @IsNotEmpty()
+  user_token: string;
 
   @IsNotEmpty()
   @Length(3, 100)

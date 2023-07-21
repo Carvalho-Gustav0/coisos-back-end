@@ -3,6 +3,7 @@ import { UserRepository } from "@application/repositories/user-repository";
 import { PrismaService } from "../prisma.service";
 import { Injectable } from "@nestjs/common";
 import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
+import { FindUserRequest } from "@application/use-cases/user/find-user";
 
 @Injectable()
 export class PrismaCoisosRepository implements UserRepository {
@@ -25,14 +26,13 @@ export class PrismaCoisosRepository implements UserRepository {
         return users
     }
 
-    async findById(userId: string): Promise<User | null> {
-        const user = await this.prismaService.user.findUnique(
-            {
-                where: {
-                    id_user: userId
-                }
+    async findUser(findUserRequest: FindUserRequest): Promise<User | null> {
+        const user = await this.prismaService.user.findFirst({
+            where:{
+                cpf: findUserRequest.cpf,
+                email: findUserRequest.email
             }
-        )
+        })
 
         if (!user) {
             return null
