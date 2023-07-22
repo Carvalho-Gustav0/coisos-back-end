@@ -1,5 +1,3 @@
-import { randomUUID } from "crypto";
-
 export interface UserProps {
     id_user: string;
     user_token: string;
@@ -10,63 +8,57 @@ export interface UserProps {
 }
 
 export class User {
-    private _id: string
-    private props: UserProps
+    private user: UserProps
 
-    constructor(props: UserProps) {
-        this._id = randomUUID()
-        this.props = props
-    }
-
-    public get id() {
-        return this._id
+    constructor(user: UserProps) {
+        this.user = user
     }
 
     public set name(name: string) {
-        this.props.name = name;
+        this.user.name = name;
     }
 
     public get name(): string {
-        return this.props.name
+        return this.user.name
     }
 
     public set user_token(user_token: string) {
-        this.props.user_token = user_token;
+        this.user.user_token = user_token;
     }
 
     public get user_token(): string {
-        return this.props.user_token
+        return this.user.user_token
     }
 
     public set cpf(cpf: string) {
-        this.props.cpf = cpf;
+        this.user.cpf = cpf;
     }
 
     public get cpf(): string {
-        return this.props.cpf
+        return this.user.cpf
     }
 
     public set email(email: string) {
-        this.props.email = email;
+        this.user.email = email;
     }
 
     public get email(): string {
-        return this.props.email
+        return this.user.email
     }
 
     public set password(password: string) {
-        this.props.password = password;
+        this.user.password = password;
     }
 
     public get password(): string {
-        return this.props.password
+        return this.user.password
     }
 
     public set id_user(id_user: string) {
-        this.props.id_user = id_user;
+        this.user.id_user = id_user;
     }
 
     public get id_user(): string {
-        return this.props.id_user
+        return this.user.id_user
     }
 }
