@@ -59,6 +59,6 @@ export class User {
     }
 
     public get id_user(): string {
-        return this.user.id_user
+        return this.user.id_user;
     }
 }

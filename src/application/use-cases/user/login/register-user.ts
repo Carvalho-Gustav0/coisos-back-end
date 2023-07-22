@@ -36,7 +36,6 @@ export class RegisterUser {
             })
 
             await this.userRepository.create(user);
-
             return user
         } catch (e) {
             throw e

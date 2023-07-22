@@ -6,11 +6,12 @@ import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
 import { FindUserRequest } from "@application/use-cases/user/find-user";
 import { LoginUserRequest } from "@application/use-cases/user/login/login-user";
 import { UserLoginFailed } from "@application/use-cases/errors/user-login-failed";
+import { AuthService } from "@application/use-cases/user/login/auth";
 
 @Injectable()
 export class PrismaCoisosRepository implements UserRepository {
 
-    constructor(private prismaService: PrismaService) { }
+    constructor(private prismaService: PrismaService, private authService: AuthService) { }
 
     async getUsers(): Promise<any[]> {
         const usersPrisma = await this.prismaService.user.findMany()
@@ -52,21 +53,26 @@ export class PrismaCoisosRepository implements UserRepository {
     }
 
     async loginUser(loginRequest: LoginUserRequest): Promise<User | null> {
-        const { user_token, email, password } = loginRequest
+        const { email, password } = loginRequest;
         try {
             const user = await this.prismaService.user.findFirst({
                 where: {
                     email: email,
                     password: password
                 }
-            })
+            });
+
             if (!user) {
-                throw new UserLoginFailed()
+                throw new UserLoginFailed();
             }
 
-            return PrismaUserMapper.toDomain(user)
+            const token = await this.authService.generateToken({ id_user: user.id_user });
+
+            user.user_token = token
+
+            return PrismaUserMapper.toDomain(user);
         } catch (e) {
-            throw e
+            throw e;
         }
     }
 
