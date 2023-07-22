@@ -1,9 +1,11 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
 import { PrismaService } from "../prisma.service";
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
 import { FindUserRequest } from "@application/use-cases/user/find-user";
+import { LoginUserRequest } from "@application/use-cases/user/login/login-user";
+import { UserEmailFailed } from "@application/use-cases/errors/user-login-failed";
 
 @Injectable()
 export class PrismaCoisosRepository implements UserRepository {
@@ -28,7 +30,7 @@ export class PrismaCoisosRepository implements UserRepository {
 
     async findUser(findUserRequest: FindUserRequest): Promise<User | null> {
         const user = await this.prismaService.user.findFirst({
-            where:{
+            where: {
                 cpf: findUserRequest.cpf,
                 email: findUserRequest.email
             }
@@ -47,6 +49,34 @@ export class PrismaCoisosRepository implements UserRepository {
         await this.prismaService.user.create({
             data: raw
         })
+    }
+
+    async loginUser(loginRequest: LoginUserRequest): Promise<User | null> {
+        const { user_token, email, password } = loginRequest
+        try {
+            const userEmail = await this.prismaService.user.findFirst({
+                where: {
+                    email: email
+                }
+            })
+
+            if (!userEmail) {
+                throw new UserEmailFailed()
+            }
+            const user = await this.prismaService.user.findFirst({
+                where: {
+                    email: email,
+                    password: password
+                }
+            })
+            if (!user) {
+                throw new UserEmailFailed()
+            }
+
+            return PrismaUserMapper.toDomain(user)
+        } catch (e) {
+            throw new InternalServerErrorException('Error on login user.');
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 import { User } from '@application/entities/user/user'
 import { UserRepository } from '@application/repositories/user-repository'
 import { FindUserRequest } from '@application/use-cases/user/find-user'
+import { LoginUserRequest } from '@application/use-cases/user/login/login-user'
 
 export class InMemoryUsersRepository implements UserRepository {
     public users: User[] = []
@@ -10,7 +11,8 @@ export class InMemoryUsersRepository implements UserRepository {
     }
 
     async findUser(findUserRequest: FindUserRequest): Promise<User> {
-        const user = this.users.find(item => item.cpf == findUserRequest.cpf && item.email == findUserRequest.email)
+        const { cpf, email } = findUserRequest
+        const user = this.users.find(item => item.cpf == cpf && item.email == email)
 
         if (!user) {
             return null
@@ -22,5 +24,17 @@ export class InMemoryUsersRepository implements UserRepository {
     async getUsers() {
         const listUsers = this.users
         return listUsers
+    }
+
+    async loginUser(loginRequest: LoginUserRequest): Promise<User> {
+        const { user_token, email, password } = loginRequest
+
+        const user = this.users.find(item => item.email == email && item.password == password)
+
+        if (!user) {
+            return null
+        }
+
+        return user
     }
 }

@@ -1,6 +1,6 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 
 export interface FindUserRequest {
     cpf: string;
@@ -14,10 +14,14 @@ export class FindUser {
     async execute(request: FindUserRequest): Promise<User | null> {
         const user = await this.userRepository.findUser(request)
 
-        if (!user) {
-            return null
-        }
+        try {
+            if (!user) {
+                return null
+            }
 
-        return user
+            return user
+        } catch (e) {
+            throw new InternalServerErrorException('Error finding user.');
+        }
     }
 }

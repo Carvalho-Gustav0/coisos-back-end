@@ -4,12 +4,12 @@ import { UserViewModel } from '../viewmodels/user-viewmodel';
 import { RegisterUser } from '@application/use-cases/user/login/register-user';
 import { FindUser, FindUserRequest } from '@application/use-cases/user/find-user';
 import { FindAllUsers } from '@application/use-cases/user/find-all-users';
+import { LoginUser, LoginUserRequest } from '@application/use-cases/user/login/login-user';
 
 
 @Controller('user')
 export class CoisosController {
-
-  constructor(private registerUser: RegisterUser, private findUser: FindUser, private findAllUsers: FindAllUsers) { }
+  constructor(private registerUser: RegisterUser, private findUser: FindUser, private findAllUsers: FindAllUsers, private loginUser: LoginUser) { }
 
   @Post('create')
   async createUser(@Body() body: CreateUserBody) {
@@ -27,6 +27,13 @@ export class CoisosController {
     return {
       user: UserViewModel.toHTTP(user)
     }
+  }
+
+  @Post('login')
+  async userLogin(@Body() body: LoginUserRequest) {
+    const user = await this.loginUser.execute(body)
+
+    return user
   }
 
   @Get('user')

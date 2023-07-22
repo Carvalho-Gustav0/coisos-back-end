@@ -1,7 +1,7 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
 import { UserAlreadyCreated } from "@application/use-cases/errors/user-already-created";
-import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 
 interface RegisterUserRequest {
     id_user: string;
@@ -11,7 +11,6 @@ interface RegisterUserRequest {
     email: string;
     password: string;
 }
-
 
 @Injectable()
 export class RegisterUser {
