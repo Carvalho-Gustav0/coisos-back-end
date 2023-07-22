@@ -1,6 +1,6 @@
 import { UserRepository } from "@application/repositories/user-repository";
 import { UserLoginFailed } from "@application/use-cases/errors/user-login-failed";
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { User } from "@prisma/client";
 
 export interface LoginUserRequest {
@@ -23,7 +23,7 @@ export class LoginUser {
 
             return user
         } catch (e) {
-            throw new InternalServerErrorException('Error on login user.');
+            throw e
         }
     }
 }

@@ -1,7 +1,7 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
 import { UserAlreadyCreated } from "@application/use-cases/errors/user-already-created";
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 
 interface RegisterUserRequest {
     id_user: string;
@@ -39,7 +39,7 @@ export class RegisterUser {
 
             return user
         } catch (e) {
-            throw new InternalServerErrorException('Error creating user.');
+            throw e
         }
     }
 }

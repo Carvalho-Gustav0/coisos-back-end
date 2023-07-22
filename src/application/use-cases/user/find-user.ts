@@ -1,6 +1,6 @@
 import { User } from "@application/entities/user/user";
 import { UserRepository } from "@application/repositories/user-repository";
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 
 export interface FindUserRequest {
     cpf: string;
@@ -21,7 +21,7 @@ export class FindUser {
 
             return user
         } catch (e) {
-            throw new InternalServerErrorException('Error finding user.');
+            throw e
         }
     }
 }

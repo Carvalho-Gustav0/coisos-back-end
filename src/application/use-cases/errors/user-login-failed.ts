@@ -5,9 +5,3 @@ export class UserLoginFailed extends HttpException {
         super('Email or Password incorrect', HttpStatus.UNAUTHORIZED);
     }
 }
-
-export class UserEmailFailed extends HttpException {
-    constructor() {
-        super('Unregistered email', HttpStatus.NOT_FOUND)
-    }
-}
