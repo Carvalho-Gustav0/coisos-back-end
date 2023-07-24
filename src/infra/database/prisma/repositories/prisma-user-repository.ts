@@ -4,7 +4,7 @@ import { PrismaService } from "../prisma.service";
 import { Injectable } from "@nestjs/common";
 import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
 import { FindUserRequest } from "@application/use-cases/user/find-user";
-import { LoginUserRequest } from "@application/use-cases/user/login/login-user";
+import { LoginUserRequest, ResponseLogin } from "@application/use-cases/user/login/login-user";
 import { UserLoginFailed } from "@application/use-cases/errors/user-login-failed";
 import { AuthService } from "@application/use-cases/user/login/auth";
 
@@ -52,7 +52,7 @@ export class PrismaCoisosRepository implements UserRepository {
         })
     }
 
-    async loginUser(loginRequest: LoginUserRequest): Promise<User | null> {
+    async loginUser(loginRequest: LoginUserRequest): Promise<ResponseLogin> {
         const { email, password } = loginRequest;
         try {
             const user = await this.prismaService.user.findFirst({
@@ -70,7 +70,7 @@ export class PrismaCoisosRepository implements UserRepository {
 
             user.user_token = token
 
-            return PrismaUserMapper.toDomain(user);
+            return PrismaUserMapper.toDomainLogin(user);
         } catch (e) {
             throw e;
         }

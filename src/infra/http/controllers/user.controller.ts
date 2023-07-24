@@ -1,11 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateUserBody } from '../dtos/create-user-body';
-import { UserViewModel } from '../viewmodels/user-viewmodel';
 import { RegisterUser } from '@application/use-cases/user/login/register-user';
 import { FindUser, FindUserRequest } from '@application/use-cases/user/find-user';
 import { LoginUser, LoginUserRequest } from '@application/use-cases/user/login/login-user';
 import { randomUUID } from 'crypto';
-
 
 @Controller('user')
 export class CoisosController {
@@ -17,7 +15,7 @@ export class CoisosController {
 
     const id_user = randomUUID()
 
-    const user = await this.registerUser.execute({
+    await this.registerUser.execute({
       id_user,
       user_token: '',
       name,
@@ -27,7 +25,7 @@ export class CoisosController {
     })
 
     return {
-      user: UserViewModel.toHTTP(user)
+      message: 'User created successfully'
     }
   }
 
