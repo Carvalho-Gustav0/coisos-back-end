@@ -5,6 +5,7 @@
             "src": "src/main.ts",
             "use": "@vercel/node",
             "config": {
+                "NODE_VERSION": "16.x",
                 "BUILD_COMMAND": "prisma generate && nest build"
             }
         }
