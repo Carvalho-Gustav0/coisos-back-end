@@ -1,6 +1,6 @@
-import { User } from "@application/entities/user/user";
-import { UserRepository } from "@application/repositories/user-repository";
-import { UserAlreadyCreated } from "@application/use-cases/errors/user-already-created";
+import { User } from "../../../entities/user/user";
+import { UserRepository } from "../../../repositories/user-repository";
+import { UserAlreadyCreated } from "../../../use-cases/errors/user-already-created";
 import { Injectable } from "@nestjs/common";
 
 interface RegisterUserRequest {

@@ -1,5 +1,5 @@
-import { UserRepository } from "@application/repositories/user-repository";
-import { UserLoginFailed } from "@application/use-cases/errors/user-login-failed";
+import { UserRepository } from "src/application/repositories/user-repository";
+import { UserLoginFailed } from "src/application/use-cases/errors/user-login-failed";
 import { Injectable } from "@nestjs/common";
 
 export interface LoginUserRequest {

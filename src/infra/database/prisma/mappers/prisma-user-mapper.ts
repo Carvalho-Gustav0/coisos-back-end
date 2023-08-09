@@ -1,5 +1,5 @@
-import { User } from "@application/entities/user/user";
-import { ResponseLogin } from "@application/use-cases/user/login/login-user";
+import { User } from "src/application/entities/user/user";
+import { ResponseLogin } from "src/application/use-cases/user/login/login-user";
 import { User as RawUser } from "@prisma/client";
 
 export class PrismaUserMapper {

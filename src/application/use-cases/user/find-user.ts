@@ -1,5 +1,5 @@
-import { User } from "@application/entities/user/user";
-import { UserRepository } from "@application/repositories/user-repository";
+import { User } from "src/application/entities/user/user";
+import { UserRepository } from "src/application/repositories/user-repository";
 import { Injectable } from "@nestjs/common";
 
 export interface FindUserRequest {

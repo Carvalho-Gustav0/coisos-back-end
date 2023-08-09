@@ -17,20 +17,6 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@application/*": [
-        "./src/application/*"
-      ],
-      "@utilities/*": [
-        "./src/application/*"
-      ],
-      "@infra/*": [
-        "./src/application/*"
-      ],
-      "@test/*": [
-        "./test/*"
-      ]
-    },
     "esModuleInterop": true,
     "resolveJsonModule": true
   }
