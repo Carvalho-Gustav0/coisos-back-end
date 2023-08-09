@@ -30,18 +30,23 @@ export class PrismaCoisosRepository implements UserRepository {
     }
 
     async findUser(findUserRequest: FindUserRequest): Promise<User | null> {
-        const user = await this.prismaService.user.findFirst({
+        const userCPF = await this.prismaService.user.findFirst({
             where: {
-                cpf: findUserRequest.cpf,
+                cpf: findUserRequest.cpf
+            }
+        })
+
+        const userEmail = await this.prismaService.user.findFirst({
+            where: {
                 email: findUserRequest.email
             }
         })
 
-        if (!user) {
+        if (!userCPF && !userEmail) {
             return null
         }
 
-        return PrismaUserMapper.toDomain(user)
+        return PrismaUserMapper.toDomain(userCPF)
     }
 
     async create(user: User): Promise<void> {
