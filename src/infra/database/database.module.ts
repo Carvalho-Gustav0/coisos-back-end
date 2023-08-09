@@ -2,9 +2,9 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from '@nestjs/jwt'; // Importe o JwtModule
 import { PrismaService } from "./prisma/prisma.service";
-import { UserRepository } from "src/application/repositories/user-repository";
+import { UserRepository } from "../../application/repositories/user-repository";
 import { PrismaCoisosRepository } from "./prisma/repositories/prisma-user-repository";
-import { AuthService } from "src/application/use-cases/user/login/auth";
+import { AuthService } from "../../application/use-cases/user/login/auth";
 
 @Module({
     imports: [JwtModule.register({

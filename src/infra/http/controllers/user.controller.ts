@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateUserBody } from '../dtos/create-user-body';
-import { RegisterUser } from 'src/application/use-cases/user/login/register-user';
-import { FindUser, FindUserRequest } from 'src/application/use-cases/user/find-user';
-import { LoginUser, LoginUserRequest } from 'src/application/use-cases/user/login/login-user';
+import { RegisterUser } from '../../../application/use-cases/user/login/register-user';
+import { FindUser, FindUserRequest } from '../../../application/use-cases/user/find-user';
+import { LoginUser, LoginUserRequest } from '../../../application/use-cases/user/login/login-user';
 import { randomUUID } from 'crypto';
 
 @Controller('user')

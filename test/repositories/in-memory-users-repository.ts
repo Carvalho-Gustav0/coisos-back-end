@@ -1,7 +1,7 @@
-import { User } from 'src/application/entities/user/user'
-import { UserRepository } from 'src/application/repositories/user-repository'
-import { FindUserRequest } from 'src/application/use-cases/user/find-user'
-import { LoginUserRequest } from 'src/application/use-cases/user/login/login-user'
+import { User } from "../../src/application/entities/user/user"
+import { UserRepository } from '../../src/application/repositories/user-repository'
+import { FindUserRequest } from '../../src/application/use-cases/user/find-user'
+import { LoginUserRequest } from '../../src/application/use-cases/user/login/login-user'
 
 export class InMemoryUsersRepository implements UserRepository {
     public users: User[] = []
