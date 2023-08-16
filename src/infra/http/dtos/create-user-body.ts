@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, isNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, Length, isNotEmpty } from 'class-validator';
 
 export class CreateUserBody {
   
@@ -11,7 +11,7 @@ export class CreateUserBody {
   name: string;
 
   @IsNotEmpty()
-  @Length(10, 150)
+  @IsEmail()
   email: string;
 
   @IsNotEmpty()
