@@ -1,5 +1,5 @@
 import { UserRepository } from "../../../repositories/user-repository";
-import { UserLoginFailed } from "../../errors/user-login-failed";
+import { UserLoginFailedAuthentication } from "../../errors/user-login-failed";
 import { Injectable } from "@nestjs/common";
 
 export interface LoginUserRequest {
@@ -24,7 +24,7 @@ export class LoginUser {
             const user = await this.userRepository.loginUser(request)
 
             if (!user) {
-                throw new UserLoginFailed()
+                throw new UserLoginFailedAuthentication()
             }
 
             return user

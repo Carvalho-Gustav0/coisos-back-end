@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
 import { FindUserRequest } from "../../../../application/use-cases/user/find-user";
 import { LoginUserRequest, ResponseLogin } from "../../../../application/use-cases/user/login/login-user";
-import { UserLoginFailed } from "../../../../application/use-cases/errors/user-login-failed";
+import { UserLoginFailedAuthentication, UserLoginNotFoundEmail } from "../../../../application/use-cases/errors/user-login-failed";
 import { AuthService } from "../../../../application/use-cases/user/login/auth";
 import { UserRepository } from "../../../../application/repositories/user-repository";
 
@@ -54,23 +54,30 @@ export class PrismaCoisosRepository implements UserRepository {
 
     async loginUser(loginRequest: LoginUserRequest): Promise<ResponseLogin> {
         const { email, password } = loginRequest;
+
+        const hasEmail = await this.findUser({ email })
+
         try {
-            const user = await this.prismaService.user.findFirst({
-                where: {
-                    email: email,
-                    password: password
+            if (hasEmail != null) {
+                const user = await this.prismaService.user.findFirst({
+                    where: {
+                        email: email,
+                        password: password
+                    }
+                });
+
+                if (!user) {
+                    throw new UserLoginFailedAuthentication();
                 }
-            });
 
-            if (!user) {
-                throw new UserLoginFailed();
+                const token = await this.authService.generateToken({ id_user: user.id_user });
+
+                user.user_token = token
+
+                return PrismaUserMapper.toDomainLogin(user);
+            } else {
+                throw new UserLoginNotFoundEmail()
             }
-
-            const token = await this.authService.generateToken({ id_user: user.id_user });
-
-            user.user_token = token
-
-            return PrismaUserMapper.toDomainLogin(user);
         } catch (e) {
             throw e;
         }
