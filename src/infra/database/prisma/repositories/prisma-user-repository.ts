@@ -31,16 +31,16 @@ export class PrismaCoisosRepository implements UserRepository {
 
     async findUser(findUserRequest: FindUserRequest): Promise<User | null> {
 
-        const userEmail = await this.prismaService.user.findFirst({
+        const user = await this.prismaService.user.findFirst({
             where: {
                 email: findUserRequest.email
             }
         })
 
-        if (userEmail === null) {
+        if (user === null) {
             return null
         } else {
-            return PrismaUserMapper.toDomain(userEmail)
+            return PrismaUserMapper.toDomain(user)
         }
     }
 
