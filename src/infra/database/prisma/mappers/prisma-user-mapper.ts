@@ -8,7 +8,6 @@ export class PrismaUserMapper {
             id_user: user.id_user,
             user_token: user.user_token,
             name: user.name,
-            cpf: user.cpf,
             email: user.email,
             password: user.password,
         }
@@ -19,7 +18,6 @@ export class PrismaUserMapper {
             id_user: raw.id_user,
             user_token: raw.user_token,
             name: raw.name,
-            cpf: raw.cpf,
             email: raw.email,
             password: raw.password,
         })
@@ -30,7 +28,6 @@ export class PrismaUserMapper {
             id_user: raw.id_user,
             user_token: raw.user_token,
             name: raw.name,
-            cpf: raw.cpf,
             email: raw.email,
         }
     }

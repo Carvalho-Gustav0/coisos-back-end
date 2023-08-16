@@ -6,7 +6,6 @@ describe('User', () => {
             id_user: '1',
             user_token: '1',
             name: 'string',
-            cpf: 'string',
             email: 'string',
             password: 'string'
         })

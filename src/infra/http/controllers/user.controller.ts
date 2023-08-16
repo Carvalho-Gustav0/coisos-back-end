@@ -11,7 +11,7 @@ export class CoisosController {
 
   @Post('create')
   async createUser(@Body() body: CreateUserBody) {
-    const { name, cpf, email, password } = body;
+    const { name, email, password } = body;
 
     const id_user = randomUUID()
 
@@ -19,7 +19,6 @@ export class CoisosController {
       id_user,
       user_token: '',
       name,
-      cpf,
       email,
       password
     })

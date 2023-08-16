@@ -15,7 +15,6 @@ model User {
   id_user    String @id
   user_token String
   name       String
-  cpf        String
   email      String
   password   String
 

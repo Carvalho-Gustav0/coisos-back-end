@@ -7,7 +7,6 @@ interface RegisterUserRequest {
     id_user: string;
     user_token: string;
     name: string;
-    cpf: string;
     email: string;
     password: string;
 }
@@ -17,9 +16,9 @@ export class RegisterUser {
     constructor(private userRepository: UserRepository) { }
 
     async execute(request: RegisterUserRequest): Promise<User> {
-        const { id_user, user_token, name, cpf, email, password } = request
+        const { id_user, user_token, name, email, password } = request
 
-        const already_user_created = await this.userRepository.findUser({ cpf, email });
+        const already_user_created = await this.userRepository.findUser({ email });
 
         if (already_user_created) {
             throw new UserAlreadyCreated()
@@ -30,7 +29,6 @@ export class RegisterUser {
                 id_user,
                 user_token,
                 name,
-                cpf,
                 email,
                 password
             })

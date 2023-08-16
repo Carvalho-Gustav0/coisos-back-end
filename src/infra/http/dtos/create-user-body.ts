@@ -11,10 +11,6 @@ export class CreateUserBody {
   name: string;
 
   @IsNotEmpty()
-  @Length(11, 11)
-  cpf: string;
-
-  @IsNotEmpty()
   @Length(10, 150)
   email: string;
 

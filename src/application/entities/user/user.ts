@@ -2,7 +2,6 @@ export interface UserProps {
     id_user: string;
     user_token: string;
     name: string;
-    cpf: string;
     email: string,
     password: string
 }
@@ -28,14 +27,6 @@ export class User {
 
     public get user_token(): string {
         return this.user.user_token
-    }
-
-    public set cpf(cpf: string) {
-        this.user.cpf = cpf;
-    }
-
-    public get cpf(): string {
-        return this.user.cpf
     }
 
     public set email(email: string) {

@@ -7,7 +7,6 @@ export function makeUser(override: Override = {}) {
         id_user: '1',
         user_token: '1',
         name: "1",
-        cpf: "1",
         email: '1',
         password: '1',
         ...override

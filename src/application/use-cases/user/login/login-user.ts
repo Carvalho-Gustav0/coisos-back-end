@@ -12,7 +12,6 @@ export interface ResponseLogin {
     id_user: string;
     name: string;
     email: string;
-    cpf: string;
     user_token: string;
 }
 

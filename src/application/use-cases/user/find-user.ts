@@ -3,7 +3,6 @@ import { UserRepository } from "../../repositories/user-repository";
 import { Injectable } from "@nestjs/common";
 
 export interface FindUserRequest {
-    cpf: string;
     email: string;
 }
 
