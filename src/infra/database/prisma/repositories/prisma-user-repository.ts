@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
 import { FindUserRequest } from "../../../../application/use-cases/user/find-user";
 import { LoginUserRequest, ResponseLogin } from "../../../../application/use-cases/user/login/login-user";
-import { UserLoginFailedAuthentication, UserLoginNotFoundEmail } from "../../../../application/use-cases/errors/user-login-failed";
+import { UserLoginEmpty, UserLoginFailedAuthentication, UserLoginNotFoundEmail } from "../../../../application/use-cases/errors/user-login-failed";
 import { AuthService } from "../../../../application/use-cases/user/login/auth";
 import { UserRepository } from "../../../../application/repositories/user-repository";
 
@@ -54,6 +54,12 @@ export class PrismaCoisosRepository implements UserRepository {
 
     async loginUser(loginRequest: LoginUserRequest): Promise<ResponseLogin> {
         const { email, password } = loginRequest;
+
+        if (!email) {
+            throw new UserLoginEmpty('Email');
+        } else if (!password) {
+            throw new UserLoginEmpty('Password');
+        }
 
         const hasEmail = await this.findUser({ email })
 
